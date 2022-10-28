@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sticky-footer-navbar/">
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="base.html">AskME</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="base.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="settings.html">Settings</a>
+      </li>
+    </ul>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="user">
+      <a class="btn btn-sm btn-outline-secondary" href="login.html">Log in</a>
+      <a class="btn btn-sm btn-outline-secondary" href="#">Register</a>
+    </div>
+  </div>
+</nav>
+<!--main-->
+<main class="container">
+  <div class="row g-5">
+    <div class="col-md-8">
+      <div class="pb-4 mb-4 fst-italic border-bottom">
+        <h3>Registration</h3>
+      </div>
+
+      <form class="needs-validation" novalidate>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Login</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="validationCustom01" required>
+            <div class="valid-feedback">
+              Ok
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Email</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="validationCustom02" required>
+            <div class="valid-feedback">
+              Ok
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">NickName</label>
+          <div class="col-sm-4 has-validation">
+            <input type="text" class="form-control" id="validationCustom03" required>
+            <div class="invalid-feedback">
+              Please, enter nickname.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Password</label>
+          <div class="col-sm-4 has-validation">
+            <input type="text" class="form-control" id="validationCustom04" required>
+            <div class="invalid-feedback">
+              Please, enter password.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Repeat Password</label>
+          <div class="col-sm-4 has-validation">
+            <input type="text" class="form-control" id="validationCustom05" required>
+            <div class="invalid-feedback">
+              Passwords don't match.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label">Upload Avatar</label>
+          <div class="mb-3 col-sm-5 btn-group-vertical" style="float: right">
+            <input class="form-control" type="file" id="formFile">
+          </div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary" type="submit">Sign Up!</button>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+
+        <div class="p-4">
+          <h4 class="fst-italic">Popular Tags</h4>
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-danger">Swift</button>
+            <button type="button" class="btn btn-warning">Xcode</button>
+            <button type="button" class="btn btn-success">mail.ru</button>
+            <button type="button" class="btn btn-primary">html</button>
+            <button type="button" class="btn btn-secondary">css</button>
+            <button type="button" class="btn btn-dark">JavaScript</button>
+          </div>
+        </div>
+
+        <div class="p-4">
+          <h4 class="fst-italic">Best Members</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">Mr. Freeman</a></li>
+            <li><a href="#">Dr. House</a></li>
+            <li><a href="#">Bender</a></li>
+            <li><a href="#">Queen Victoria</a></li>
+            <li><a href="#">V. Pupkin</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+
+</html>

@@ -1,0 +1,20 @@
+.main-avatar {
+    width: 60px;
+    height: 60px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius:30px;
+    margin: 10px;
+}
+
+article {
+    margin-bottom: 50px;
+}

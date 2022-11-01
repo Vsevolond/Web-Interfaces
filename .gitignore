@@ -1,4 +1,12 @@
-.gitignore
-.idea
 .DS_Store
-/.idea
+.Rhistory
+*.ipynb_checkpoints
+*_sol.py
+.vscode
+*__pycache__
+secret_*
+note.ipynb
+*.db
+*.bat
+.idea
+pyvenv.cfg

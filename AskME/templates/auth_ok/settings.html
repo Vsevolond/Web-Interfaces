@@ -3,36 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>signup</title>
-  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../static/css/style.css" >
+  <title>settings</title>
+  <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../../static/css/style.css" >
 </head>
 
 <body>
 <!-- Fixed navbar -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="auth_ok/base.html">AskME</a>
+    <a class="navbar-brand" href="base.html">AskME</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link active" href="auth_ok/base.html">Home</a>
+        <a class="nav-link" href="base.html">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link active" href="#">Settings</a>
       </li>
     </ul>
     <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <a href="auth_ok/ask.html"><button type="button" class="btn btn-success">ASK</button></a>
+        <a href="ask.html"><button type="button" class="btn btn-success">ASK</button></a>
       </form>
     </div>
+    <img src="../../static/img/avatar.jpeg" class="main-avatar" alt="">
     <div class="user">
-      <a class="btn btn-sm btn-outline-secondary" href="not_auth/login.html">Log in</a>
-      <a class="btn btn-sm btn-outline-secondary" href="#">Register</a>
+      <h1 class="navbar-brand">Timon</h1>
+      <a class="btn btn-sm btn-outline-secondary" href="../not_auth/login.html">Log out</a>
     </div>
   </div>
 </nav>
@@ -41,64 +42,45 @@
   <div class="row g-5">
     <div class="col-md-8">
       <div class="pb-4 mb-4 fst-italic border-bottom">
-        <h3>Registration</h3>
+        <h3>Settings</h3>
       </div>
 
       <form class="needs-validation" novalidate>
         <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Login</label>
+          <div class="col-auto"><img src="../../static/img/avatar.jpeg" class="avatar" alt=""></div>
+          <div class="mb-3 col-sm-5 btn-group-vertical" style="float: right">
+            <input class="form-control" type="file" id="formFile">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Login</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="validationCustom01" required>
+            <input type="text" class="form-control" id="validationCustom01" value="Mr. Geek" required>
             <div class="valid-feedback">
               Ok
             </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Email</label>
+          <label class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="validationCustom02" required>
+            <input type="text" class="form-control" id="validationCustom02" value="timon&pumba@gmail.com" required>
             <div class="valid-feedback">
               Ok
             </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">NickName</label>
+          <label class="col-sm-2 col-form-label">NickName</label>
           <div class="col-sm-4 has-validation">
-            <input type="text" class="form-control" id="validationCustom03" required>
+            <input type="text" class="form-control" id="validationCustom03" value="Timon" required>
             <div class="invalid-feedback">
               Please, enter nickname.
             </div>
           </div>
         </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Password</label>
-          <div class="col-sm-4 has-validation">
-            <input type="text" class="form-control" id="validationCustom04" required>
-            <div class="invalid-feedback">
-              Please, enter password.
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Repeat Password</label>
-          <div class="col-sm-4 has-validation">
-            <input type="text" class="form-control" id="validationCustom05" required>
-            <div class="invalid-feedback">
-              Passwords don't match.
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">Upload Avatar</label>
-          <div class="mb-3 col-sm-5 btn-group-vertical" style="float: right">
-            <input class="form-control" type="file" id="formFile">
-          </div>
-        </div>
         <div class="col-auto">
-          <button class="btn btn-primary" type="submit">Sign Up!</button>
+          <button class="btn btn-primary" type="submit">Save</button>
         </div>
       </form>
 
@@ -135,6 +117,6 @@
 </main>
 </body>
 
-<script src="../static/js/bootstrap.bundle.min.js"></script>
+<script src="../../static/js/bootstrap.bundle.min.js"></script>
 
 </html>

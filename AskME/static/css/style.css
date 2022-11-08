@@ -7,7 +7,13 @@
     width: 100px;
     height: 100px;
 }
-
+.unknown {
+    width: 250px;
+    height: auto;
+}
+form {
+    width: max-content;
+}
 img {
     max-width: 100%;
     height: auto;

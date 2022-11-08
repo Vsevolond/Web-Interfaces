@@ -43,39 +43,51 @@
       <div class="pb-4 mb-4 fst-italic border-bottom">
         <h3>Registration</h3>
       </div>
-
+      <img src="../../static/img/unknown.jpg" class="unknown" alt="" style="float: right">
       <form class="needs-validation" novalidate>
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Login</label>
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <input type="text" class="form-control" id="validationCustom01" required>
             <div class="valid-feedback">
               Ok
+            </div>
+            <div class="invalid-feedback">
+              Please, enter your login
             </div>
           </div>
         </div>
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Email</label>
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <input type="text" class="form-control" id="validationCustom02" required>
             <div class="valid-feedback">
               Ok
+            </div>
+            <div class="invalid-feedback">
+              Where is an email???
             </div>
           </div>
         </div>
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">NickName</label>
-          <div class="col-sm-4 has-validation">
+          <div class="col-sm-6 has-validation">
             <input type="text" class="form-control" id="validationCustom03" required>
+            <div class="valid-feedback">
+              Ok
+            </div>
             <div class="invalid-feedback">
-              Please, enter nickname.
+              NickName is needed
             </div>
           </div>
         </div>
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Password</label>
-          <div class="col-sm-4 has-validation">
+          <div class="col-sm-6 has-validation">
             <input type="text" class="form-control" id="validationCustom04" required>
+            <div class="valid-feedback">
+              Ok
+            </div>
             <div class="invalid-feedback">
               Please, enter password.
             </div>
@@ -83,18 +95,26 @@
         </div>
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Repeat Password</label>
-          <div class="col-sm-4 has-validation">
+          <div class="col-sm-6 has-validation">
             <input type="text" class="form-control" id="validationCustom05" required>
+            <div class="valid-feedback">
+              Ok
+            </div>
             <div class="invalid-feedback">
               Passwords don't match.
             </div>
           </div>
         </div>
-
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label">Upload Avatar</label>
-          <div class="mb-3 col-sm-5 btn-group-vertical" style="float: right">
-            <input class="form-control" type="file" id="formFile">
+          <div class="col-sm-8 has-validation">
+            <input class="form-control" type="file" id="formFile" required>
+            <div class="valid-feedback">
+              Ok
+            </div>
+            <div class="invalid-feedback">
+              You have forgotten a photo
+            </div>
           </div>
         </div>
         <div class="col-auto">

@@ -46,19 +46,27 @@
 
       <form class="needs-validation" novalidate>
         <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">Login</label>
-          <div class="col-sm-4">
+          <label class="col-sm-4 col-form-label">Login</label>
+          <div class="col-sm-8">
             <input type="text" class="form-control" id="validationCustom01" required>
             <div class="valid-feedback">
               Ok
             </div>
+            <div class="invalid-feedback">
+              Please, enter your login
+            </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-4">
-            <label for="inputPassword2" class="visually-hidden">Пароль</label>
-            <input type="password" class="form-control" id="inputPassword2">
+          <label class="col-sm-4 col-form-label">Password</label>
+          <div class="col-sm-8">
+            <input type="password" class="form-control" id="inputPassword2" required>
+            <div class="valid-feedback">
+              Ok
+            </div>
+            <div class="invalid-feedback">
+              Enter password
+            </div>
           </div>
         </div>
         <div class="mb-3 row">
@@ -67,7 +75,6 @@
           </div>
           <a href="signup.html" class="col-auto btn-group-vertical">create account</a>
         </div>
-
       </form>
 
     </div>

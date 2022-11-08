@@ -45,22 +45,48 @@
         <h3>New Question</h3>
       </div>
 
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Title</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="How to build a moon park?">
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Text</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                  placeholder="Really, how? Have no idea about it"></textarea>
-      </div>
-      <div class="mb  -3">
-        <label for="exampleFormControlInput1" class="form-label">Tags</label>
-        <input type="email" class="form-control" placeholder="moon, park, puzzle">
-      </div>
-      <div style="float: right; margin-top: 40px">
-        <button type="button" class="btn btn-outline-success btn-lg">Ask!</button>
-      </div>
+      <form class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label class="col-sm-4 col-form-label">Title</label>
+          <div class="col-7">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="How to build a moon park?" required>
+            <div class="valid-feedback">
+                Ok
+              </div>
+              <div class="invalid-feedback">
+                Please, enter a title
+              </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="col-sm-4 col-form-label">Text</label>
+          <div class="col-7">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
+                      placeholder="Really, how? Have no idea about it" required></textarea>
+            <div class="valid-feedback">
+                Ok
+              </div>
+              <div class="invalid-feedback">
+                What do you want to say?
+              </div>
+            </div>
+        </div>
+        <div class="mb-3">
+          <label class="col-sm-4 col-form-label">Tags</label>
+          <div class="col-7">
+            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="moon, park, puzzle" required>
+            <div class="valid-feedback">
+                Ok
+              </div>
+              <div class="invalid-feedback">
+                Tags are needed
+              </div>
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-outline-success btn-lg">Ask!</button>
+        </div>
+      </form>
     </div>
 
     <div class="col-md-4">

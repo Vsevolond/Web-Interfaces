@@ -2,5 +2,6 @@
 .DS_Store
 */.DS_Store
 */*/.DS.Store
-!/venv/
-!/AskME/db.sqlite3
+.venv
+venv/
+*/.db.sqlite3

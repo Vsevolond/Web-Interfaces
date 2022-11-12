@@ -79,11 +79,9 @@
                     <div class="p-4">
                         <h4 class="fst-italic">Best Members</h4>
                         <ol class="list-unstyled">
-                            <li><a href="#">Mr. Freeman</a></li>
-                            <li><a href="#">Dr. House</a></li>
-                            <li><a href="#">Bender</a></li>
-                            <li><a href="#">Queen Victoria</a></li>
-                            <li><a href="#">V. Pupkin</a></li>
+                            {% for member in best %}
+                                <li><a href="#">{{ member }}</a></li>
+                            {% endfor %}
                         </ol>
                     </div>
                 </div>

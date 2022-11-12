@@ -15,6 +15,14 @@ POP_TAGS = [
     {'name': 'tag4', 'color': "btn btn-dark"},
 ]
 
+BEST_MEMBERS = [
+    'Mr. Freeman',
+    'Dr. House',
+    'Bender',
+    'Queen Victoria',
+    'V. Pupkin'
+]
+
 QUESTIONS = []
 for id in range(10):
     ANSWERS = []

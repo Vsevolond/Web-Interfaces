@@ -10,18 +10,19 @@ def index(request):
     paginator = Paginator(models.QUESTIONS, 3)
     page_num = request.GET.get('page')
     page_obj = paginator.get_page(page_num)
-    context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
-    return render(request, 'auth_ok/index.html', context=context)
+    context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS,
+               'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
+    return render(request, 'main/index.html', context=context)
 
 
 def ask(request):
-    context = {'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
-    return render(request, 'auth_ok/ask.html', context=context)
+    context = {'pop_tags': models.POP_TAGS, 'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
+    return render(request, 'main/ask.html', context=context)
 
 
 def settings(request):
-    context = {'pop_tags': models.POP_TAGS, 'is_home': False, 'is_auth': models.IS_AUTH}
-    return render(request, 'auth_ok/settings.html', context=context)
+    context = {'pop_tags': models.POP_TAGS, 'best': models.BEST_MEMBERS, 'is_home': False, 'is_auth': models.IS_AUTH}
+    return render(request, 'main/settings.html', context=context)
 
 
 def question(request, id: int):
@@ -30,8 +31,9 @@ def question(request, id: int):
         paginator = Paginator(question_item['answers'], 5)
         page_num = request.GET.get('page')
         page_obj = paginator.get_page(page_num)
-        context = {'paginator': paginator, 'page': page_obj, 'question': question_item, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
-        return render(request, 'auth_ok/question.html', context=context)
+        context = {'paginator': paginator, 'page': page_obj, 'question': question_item,
+                   'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
+        return render(request, 'main/question.html', context=context)
     else:
         return HttpResponse("There is no such question")
 
@@ -46,8 +48,9 @@ def tag(request, question_tag: str):
         paginator = Paginator(tag_questions, 3)
         page_num = request.GET.get('page')
         page_obj = paginator.get_page(page_num)
-        context = {'paginator': paginator, 'page': page_obj, 'tag': question_tag, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
-        return render(request, 'auth_ok/tag.html', context=context)
+        context = {'paginator': paginator, 'page': page_obj, 'tag': question_tag,
+                   'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
+        return render(request, 'main/tag.html', context=context)
     else:
         return HttpResponse("There are no questions with this tag")
 
@@ -59,15 +62,16 @@ def hot(request):
     paginator = Paginator(hot_questions, 3)
     page_num = request.GET.get('page')
     page_obj = paginator.get_page(page_num)
-    context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
-    return render(request, 'auth_ok/hot.html', context=context)
+    context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS,
+               'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
+    return render(request, 'main/hot.html', context=context)
 
 
 def login(request):
-    context = {'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
-    return render(request, 'not_auth/login.html', context=context)
+    context = {'pop_tags': models.POP_TAGS, 'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
+    return render(request, 'main/login.html', context=context)
 
 
 def signup(request):
-    context = {'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
-    return render(request, 'not_auth/signup.html', context=context)
+    context = {'pop_tags': models.POP_TAGS, 'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
+    return render(request, 'main/signup.html', context=context)

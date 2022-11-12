@@ -55,7 +55,7 @@
         </div>
     </article>
 
-    {% for answer in question.answers %}
+    {% for answer in page %}
         {% include "inc/answer.html" %}
     {% endfor %}
 
@@ -66,7 +66,7 @@
         <label for="floatingTextarea2">Your answer</label>
     </div>
 
-    <div style="float: right">
+    <div style="float: right; margin-bottom: 20px">
         <button type="button" class="btn btn-outline-success btn-lg"
                 style="margin: 20px">Send</button>
     </div>

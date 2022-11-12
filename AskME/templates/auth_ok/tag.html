@@ -9,7 +9,7 @@
         <div class="col-auto"><h3 style="color: #bb2d3b">{{ tag }}</h3></div>
     </div>
 
-    {% for question in questions %}
+    {% for question in page %}
         {% include "inc/question-item.html" %}
     {% endfor %}
 

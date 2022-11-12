@@ -1,11 +1,15 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from . import models
 
 # Create your views here.
 
 def index(request):
-    context = {'questions': models.QUESTIONS, 'pop_tags': models.POP_TAGS, 'is_auth': models.IS_AUTH}
+    paginator = Paginator(models.QUESTIONS, 3)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+    context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS, 'is_auth': models.IS_AUTH}
     return render(request, 'auth_ok/index.html', context=context)
 
 def ask(request):

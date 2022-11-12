@@ -1,19 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from . import models, forms
+from . import models
 
 # Create your views here.
-
-
-def get_user(request):
-    if request.method == 'POST':
-        form = forms.LoginForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['user_login']
-            password = form.cleaned_data['user_password']
-            if name == "admin" and password == "1234":
-                models.IS_AUTH = True
 
 
 def index(request):

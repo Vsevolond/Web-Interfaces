@@ -17,9 +17,12 @@ def settings(request):
     return render(request, 'auth_ok/settings.html', context=context)
 
 def question(request, id: int):
-    question_item = models.QUESTIONS[id]
-    context = {'question': question_item, 'pop_tags': models.POP_TAGS, 'page': "Home", 'is_auth': models.IS_AUTH}
-    return render(request, 'auth_ok/question.html', context=context)
+    if id < len(models.QUESTIONS):
+        question_item = models.QUESTIONS[id]
+        context = {'question': question_item, 'pop_tags': models.POP_TAGS, 'page': "Home", 'is_auth': models.IS_AUTH}
+        return render(request, 'auth_ok/question.html', context=context)
+    else:
+        return HttpResponse("There is no such question")
 
 def tag(request, question_tag: str):
     tag_questions = []
@@ -27,8 +30,11 @@ def tag(request, question_tag: str):
         if question_tag in question_item['tags']:
             tag_questions.append(question_item)
 
-    context = {'questions': tag_questions, 'tag': question_tag, 'pop_tags': models.POP_TAGS, 'page': "Home", 'is_auth': models.IS_AUTH}
-    return render(request, 'auth_ok/tag.html', context=context)
+    if len(tag_questions) > 0:
+        context = {'questions': tag_questions, 'tag': question_tag, 'pop_tags': models.POP_TAGS, 'page': "Home", 'is_auth': models.IS_AUTH}
+        return render(request, 'auth_ok/tag.html', context=context)
+    else:
+        return HttpResponse("There are no questions with this tag")
 
 def hot(request):
     hot_questions = []

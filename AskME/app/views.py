@@ -35,7 +35,7 @@ def question(request, id: int):
                    'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
         return render(request, 'main/question.html', context=context)
     else:
-        return HttpResponse("There is no such question")
+        return HttpResponse(status=500, content="There is no such question")
 
 
 def tag(request, question_tag: str):
@@ -52,7 +52,7 @@ def tag(request, question_tag: str):
                    'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
         return render(request, 'main/tag.html', context=context)
     else:
-        return HttpResponse("There are no questions with this tag")
+        return HttpResponse(status=500, content="There are no questions with this tag")
 
 
 def hot(request):

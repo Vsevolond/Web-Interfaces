@@ -6,10 +6,15 @@ from . import models
 # Create your views here.
 
 
-def index(request):
-    paginator = Paginator(models.QUESTIONS, 3)
+def paginate(request, objects_list, per_page=10):
+    paginator = Paginator(objects_list, per_page)
     page_num = request.GET.get('page')
     page_obj = paginator.get_page(page_num)
+    return paginator, page_obj
+
+
+def index(request):
+    paginator, page_obj = paginate(request, models.QUESTIONS, 3)
     context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS,
                'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
     return render(request, 'main/index.html', context=context)
@@ -28,9 +33,7 @@ def settings(request):
 def question(request, id: int):
     if id < len(models.QUESTIONS):
         question_item = models.QUESTIONS[id]
-        paginator = Paginator(question_item['answers'], 5)
-        page_num = request.GET.get('page')
-        page_obj = paginator.get_page(page_num)
+        paginator, page_obj = paginate(request, question_item['answers'], 5)
         context = {'paginator': paginator, 'page': page_obj, 'question': question_item,
                    'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
         return render(request, 'main/question.html', context=context)
@@ -45,9 +48,7 @@ def tag(request, question_tag: str):
             tag_questions.append(question_item)
 
     if len(tag_questions) > 0:
-        paginator = Paginator(tag_questions, 3)
-        page_num = request.GET.get('page')
-        page_obj = paginator.get_page(page_num)
+        paginator, page_obj = paginate(request, tag_questions, 3)
         context = {'paginator': paginator, 'page': page_obj, 'tag': question_tag,
                    'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
         return render(request, 'main/tag.html', context=context)
@@ -59,9 +60,7 @@ def hot(request):
     hot_questions = []
     for question_id in sorted(models.HOT_QUESTIONS):
         hot_questions.append(models.QUESTIONS[question_id])
-    paginator = Paginator(hot_questions, 3)
-    page_num = request.GET.get('page')
-    page_obj = paginator.get_page(page_num)
+    paginator, page_obj = paginate(request, hot_questions, 3)
     context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS,
                'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
     return render(request, 'main/hot.html', context=context)

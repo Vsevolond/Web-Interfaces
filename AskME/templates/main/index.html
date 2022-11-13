@@ -1,0 +1,20 @@
+{% extends "inc/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-md-8">
+    <div class="pb-4 mb-4 fst-italic border-bottom">
+        <h3>New Questions</h3>
+        <a href="{% url "hot" %}">Hot questions</a>
+    </div>
+
+    {% for question in page %}
+        {% include "inc/question-item.html" %}
+    {% endfor %}
+
+    {% include "inc/paginator.html" %}
+
+</div>
+
+{% endblock %}

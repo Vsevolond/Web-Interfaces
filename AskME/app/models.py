@@ -24,7 +24,7 @@ BEST_MEMBERS = [
 ]
 
 QUESTIONS = []
-for id in range(10):
+for id in range(100):
     ANSWERS = []
     for i in range(id*id):
         ANSWERS.append({

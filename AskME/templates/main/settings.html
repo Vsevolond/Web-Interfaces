@@ -12,7 +12,10 @@
         <div class="mb-3 row">
             <div class="col-auto"><img src="{% static "img/avatar.jpeg" %}" class="avatar" alt=""></div>
             <div class="mb-3 col-sm-8 btn-group-vertical" style="float: right">
-                <input class="form-control" type="file" id="formFile">
+                <input class="form-control" type="file" id="formFile" required>
+                <div class="invalid-feedback">
+                    Where is a photo?
+                </div>
             </div>
         </div>
         <div class="mb-3 row">
@@ -21,6 +24,9 @@
                 <input type="text" class="form-control" id="validationCustom01" value="Mr. Geek" required>
                 <div class="valid-feedback">
                     Ok
+                </div>
+                <div class="invalid-feedback">
+                    Please, enter login
                 </div>
             </div>
         </div>
@@ -31,14 +37,20 @@
                 <div class="valid-feedback">
                     Ok
                 </div>
+                <div class="invalid-feedback">
+                    Please, enter email
+                </div>
             </div>
         </div>
         <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">NickName</label>
             <div class="col-sm-8 has-validation">
                 <input type="text" class="form-control" id="validationCustom03" value="Timon" required>
+                <div class="valid-feedback">
+                    Ok
+                </div>
                 <div class="invalid-feedback">
-                    Please, enter nickname.
+                    NickName is needed
                 </div>
             </div>
         </div>

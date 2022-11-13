@@ -1,6 +1,6 @@
 from django.db import models
 
-IS_AUTH = False
+IS_AUTH = True
 
 HOT_QUESTIONS = [
     1, 4, 7

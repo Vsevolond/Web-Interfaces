@@ -58,16 +58,20 @@
     {% endfor %}
 
     {% include "inc/paginator.html" %}
+    <form class="needs-validation col-12" novalidate>
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
+            <label for="floatingTextarea2">Your answer</label>
+            <div class="invalid-feedback">
+                Please, write an answer
+            </div>
+        </div>
 
-    <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-        <label for="floatingTextarea2">Your answer</label>
-    </div>
-
-    <div style="float: right; margin-bottom: 20px">
-        <button type="button" class="btn btn-outline-success btn-lg"
-                style="margin: 20px">Send</button>
-    </div>
+        <div style="float: right; margin-bottom: 20px">
+            <button type="submit" class="btn btn-outline-success btn-lg"
+                    style="margin: 20px">Send</button>
+        </div>
+    </form>
 
 </div>
 

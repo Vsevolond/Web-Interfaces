@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">Login</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" id="validationCustom01" value="Mr. Geek" required>
+            <label class="col-sm-2 col-form-label">Username</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="username" value="Timon" required>
                 <div class="valid-feedback">
                     Ok
                 </div>
@@ -32,8 +32,8 @@
         </div>
         <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" id="validationCustom02" value="timon&pumba@gmail.com" required>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="email" value="timon&pumba@gmail.com" required>
                 <div class="valid-feedback">
                     Ok
                 </div>
@@ -43,14 +43,39 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">NickName</label>
-            <div class="col-sm-8 has-validation">
-                <input type="text" class="form-control" id="validationCustom03" value="Timon" required>
-                <div class="valid-feedback">
-                    Ok
+            <label for="user_password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10 row">
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" name="password" id="password" value="12345678" required>
+                    <div class="valid-feedback">
+                        Ok
+                    </div>
+                    <div class="invalid-feedback">
+                        Enter password
+                    </div>
                 </div>
-                <div class="invalid-feedback">
-                    NickName is needed
+                <div class="col-sm-1 btn-group-vertical" style="padding-left: 0">
+                    <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer"></i>
+                    <script>
+                        const togglePassword = document
+                            .querySelector('#togglePassword');
+
+                        const password = document.querySelector('#password');
+
+                        togglePassword.addEventListener('click', () => {
+
+                            // Toggle the type attribute using
+                            // getAttribure() method
+                            const type = password
+                                .getAttribute('type') === 'password' ?
+                                'text' : 'password';
+
+                            password.setAttribute('type', type);
+
+                            // Toggle the eye and bi-eye icon
+                            togglePassword.classList.toggle('bi-eye');
+                        });
+                    </script>
                 </div>
             </div>
         </div>
@@ -58,7 +83,6 @@
             <button class="btn btn-primary" type="submit">Save</button>
         </div>
     </form>
-
 </div>
 
 {% endblock %}

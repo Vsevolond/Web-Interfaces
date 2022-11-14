@@ -67,13 +67,13 @@
 
                     <div class="p-4">
                         <h4 class="fst-italic">Popular Tags</h4>
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <span class="col-auto" style="line-height: 40px" role="group" aria-label="Basic mixed styles example">
                             {% for tag in pop_tags %}
                                 <a href="{% url "tag" question_tag=tag.name %}" class="{{ tag.color }}">
                                     {{ tag.name }}
                                 </a>
                             {% endfor %}
-                        </div>
+                        </span>
                     </div>
 
                     <div class="p-4">

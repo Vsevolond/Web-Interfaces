@@ -53,8 +53,8 @@ class Question(models.Model):
     text = models.TextField()
     date = models.DateField(auto_now=True)
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="questions")
-    like_users = models.ManyToManyField(Member, related_name="likes")
-    dislike_users = models.ManyToManyField(Member, related_name="dislikes")
+    like_users = models.ManyToManyField(Member, related_name="question_likes")
+    dislike_users = models.ManyToManyField(Member, related_name="question_dislikes")
 
 
 class Answer(models.Model):
@@ -62,8 +62,8 @@ class Answer(models.Model):
     date = models.DateField(auto_now=True)
     correct = models.BooleanField(default=False)
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="answers")
-    like_users = models.ManyToManyField(Member, related_name="likes")
-    dislike_users = models.ManyToManyField(Member, related_name="dislikes")
+    like_users = models.ManyToManyField(Member, related_name="answer_likes")
+    dislike_users = models.ManyToManyField(Member, related_name="answer_dislikes")
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name="answers", related_query_name="answer")
 

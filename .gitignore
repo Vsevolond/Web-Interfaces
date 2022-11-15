@@ -9,3 +9,4 @@ venv/
 /AskME/avatars/
 /AskME/app/migrations
 /AskME/app/migrations/
+/AskME/*/__pycache__

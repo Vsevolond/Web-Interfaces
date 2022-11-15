@@ -1,4 +1,7 @@
 from django.contrib import admin
-#from app.models import Users
+from app import models
 
-#admin.site.register(Users)
+admin.site.register(models.Member)
+admin.site.register(models.Question)
+admin.site.register(models.Answer)
+admin.site.register(models.Tag)

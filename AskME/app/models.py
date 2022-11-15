@@ -43,33 +43,33 @@ for id in range(100):
 
 
 class Member(models.Model):
-    info = models.ForeignKey(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
-    avatar = models.ImageField()
-    rank = models.IntegerField()
+    info = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
+    avatar = models.ImageField(default="AskME/static/img/unknown.jpg", blank=True)
+    rank = models.IntegerField(blank=True, null=True)
 
 
 class Question(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     text = models.TextField()
-    date = models.DateField(auto_now=True)
+    date = models.DateField(auto_now_add=True)
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="questions")
-    like_users = models.ManyToManyField(Member, related_name="question_likes")
-    dislike_users = models.ManyToManyField(Member, related_name="question_dislikes")
+    like_users = models.ManyToManyField(Member, related_name="question_likes", blank=True)
+    dislike_users = models.ManyToManyField(Member, related_name="question_dislikes", blank=True)
 
 
 class Answer(models.Model):
     text = models.TextField()
-    date = models.DateField(auto_now=True)
+    date = models.DateField(auto_now_add=True)
     correct = models.BooleanField(default=False)
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="answers")
-    like_users = models.ManyToManyField(Member, related_name="answer_likes")
-    dislike_users = models.ManyToManyField(Member, related_name="answer_dislikes")
+    like_users = models.ManyToManyField(Member, related_name="answer_likes", blank=True)
+    dislike_users = models.ManyToManyField(Member, related_name="answer_dislikes", blank=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name="answers", related_query_name="answer")
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=10)
-    rank = models.IntegerField()
+    rank = models.IntegerField(blank=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name="tags", related_query_name="tag")

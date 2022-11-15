@@ -44,7 +44,7 @@ for id in range(100):
 
 class Member(models.Model):
     info = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
-    avatar = models.ImageField(default="AskME/static/img/unknown.jpg", blank=True)
+    avatar = models.ImageField(default="AskME/static/img/unknown.jpg", upload_to="avatars", blank=True)
     rank = models.IntegerField(blank=True, null=True)
 
 
@@ -70,6 +70,6 @@ class Answer(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=10)
-    rank = models.IntegerField(blank=True)
+    rank = models.IntegerField(blank=True, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name="tags", related_query_name="tag")

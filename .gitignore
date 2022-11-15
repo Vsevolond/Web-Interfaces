@@ -5,3 +5,7 @@
 .venv
 venv/
 */db.sqlite3
+*/avatars
+*/avatars/
+*/*/migrations
+*/*/migrations/

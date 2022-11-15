@@ -5,7 +5,7 @@
 .venv
 venv/
 */db.sqlite3
-*/avatars
-*/avatars/
-*/*/migrations
-*/*/migrations/
+/AskME/avatars
+/AskME/avatars/
+/AskME/app/migrations
+/AskME/app/migrations/

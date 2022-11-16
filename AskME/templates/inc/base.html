@@ -70,7 +70,7 @@
                         <h4 class="fst-italic">Popular Tags</h4>
                         <span class="col-auto" style="line-height: 40px" role="group" aria-label="Basic mixed styles example">
                             {% for tag in pop_tags %}
-                                <a href="{% url "tag" tag_name=tag.name %}" class="{{ tag.color }}">
+                                <a href="{% url "tag" tag_name=tag.name %}" class="{{ tag.class_tag }}">
                                     {{ tag.name }}
                                 </a>
                             {% endfor %}

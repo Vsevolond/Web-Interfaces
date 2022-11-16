@@ -1,12 +1,16 @@
+import random
+
 import django.contrib.auth.backends
 from django.db import models
 from django.db.models import Count
+from functools import partial
 
 IS_AUTH = True
 
 HOT_QUESTIONS = [
     1, 4, 7
 ]
+
 
 POP_TAGS = [
     {'name': 'Swift', 'color': "btn btn-danger"},
@@ -124,14 +128,34 @@ class Answer(models.Model):
 
 class TagManager(models.Manager):
     def pop_tags(self):
-        return self.all().annotate(rank=Count('questions')).order_by('rank').reverse()[:5]
+        return self.all().annotate(rank=Count('questions')).order_by('rank').reverse()[:10]
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=10)
     questions = models.ManyToManyField(Question, related_name="tags", related_query_name="tag")
-
+    CLASS_TAGS = [("btn btn-primary", 'primary'), ("btn btn-secondary", 'secondary'), ("btn btn-success", 'success'),
+                     ("btn btn-danger", 'danger'), ("btn btn-warning", 'warning'), ("btn btn-info", 'info'),
+                     ("btn btn-dark", 'dark')]
+    class_tag = models.CharField(max_length=20, choices=CLASS_TAGS, default='primary')
     objects = TagManager()
+
+    COLORS = {
+        'btn btn-primary': '#007bff',
+        'btn btn-secondary': '#6c757d',
+        'btn btn-success': '#28a745',
+        'btn btn-danger': '#dc3545',
+        'btn btn-warning': '#ffc107',
+        'btn btn-info': '#17a2b8',
+        'btn btn-dark': '#343a40'
+    }
+
+    # def __init__(self, *args):
+    #     self.color = random.choice(COLOR_BUTTONS)
+    #     super().__init__(*args)
+
+    def color(self):
+        return self.COLORS[self.class_tag]
 
     def rank(self) -> int:
         return self.questions.all().count()

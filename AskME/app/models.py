@@ -64,6 +64,11 @@ class Member(models.Model):
         return self.avatar.name
 
 
+class QuestionManager(models.Manager):
+    def hot_questions(self):
+        return self.all().annotate(rank=Count('answers')).order_by('-rank')[:10]
+
+
 class Question(models.Model):
     title = models.CharField(max_length=100, unique=True)
     text = models.TextField()
@@ -71,6 +76,11 @@ class Question(models.Model):
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="questions")
     like_users = models.ManyToManyField(Member, related_name="question_likes", blank=True)
     dislike_users = models.ManyToManyField(Member, related_name="question_dislikes", blank=True)
+
+    objects = QuestionManager()
+
+    def rank(self) -> int:
+        return self.answers.all().count()
 
     def get_text(self):
         return self.text
@@ -108,7 +118,7 @@ class Answer(models.Model):
     like_users = models.ManyToManyField(Member, related_name="answer_likes", blank=True)
     dislike_users = models.ManyToManyField(Member, related_name="answer_dislikes", blank=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
-                                 related_name="answers", related_query_name="answer")
+                                 related_name="answers")
 
     def __str__(self):
         return self.text
@@ -128,7 +138,7 @@ class Answer(models.Model):
 
 class TagManager(models.Manager):
     def pop_tags(self):
-        return self.all().annotate(rank=Count('questions')).order_by('rank').reverse()[:10]
+        return self.all().annotate(rank=Count('questions')).order_by('-rank')[:10]
 
 
 class Tag(models.Model):

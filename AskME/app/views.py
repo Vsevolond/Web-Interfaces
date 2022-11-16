@@ -64,9 +64,7 @@ def tag(request, tag_name: str):
 
 
 def hot(request):
-    hot_questions = []
-    for question_id in sorted(models.HOT_QUESTIONS):
-        hot_questions.append(models.QUESTIONS[question_id])
+    hot_questions = models.Question.objects.hot_questions()
     paginator, page_obj = paginate(request, hot_questions, 3)
     context = base_context()
     context.update({'paginator': paginator, 'page': page_obj})

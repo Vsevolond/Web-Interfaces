@@ -1,5 +1,6 @@
 import django.contrib.auth.backends
 from django.db import models
+from django.db.models import Count
 
 IS_AUTH = True
 
@@ -48,7 +49,7 @@ for id in range(100):
 class Member(models.Model):
     info = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
     avatar = models.ImageField(default="AskME/static/img/unknown.jpg", upload_to="avatars", blank=True)
-    rank = models.IntegerField(blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True, default=0)
 
     #objects = MemberManager()
 
@@ -121,15 +122,22 @@ class Answer(models.Model):
         return self.dislike_users.all().count()
 
 
+class TagManager(models.Manager):
+    def pop_tags(self):
+        return self.all().annotate(rank=Count('questions')).order_by('rank').reverse()[:5]
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=10)
-    questions = models.ManyToManyField(Question, related_name="tags")
-    rank = models.IntegerField(blank=True, null=True)
-    
+    questions = models.ManyToManyField(Question, related_name="tags", related_query_name="tag")
+
+    objects = TagManager()
+
+    def rank(self) -> int:
+        return self.questions.all().count()
+
     def questions_by_tag(self):
         return self.questions.all()
-
 
     def __str__(self):
         return self.name

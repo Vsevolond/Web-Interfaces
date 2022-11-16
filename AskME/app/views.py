@@ -45,7 +45,7 @@ def question(request, id: int):
 def tag(request, tag_name: str):
     if models.Tag.objects.filter(name=tag_name).count() > 0:
         tag = models.Tag.objects.get(name=tag_name)
-        print(tag.rank)
+        print(models.Tag.objects.pop_tags())
         tag_questions = tag.questions_by_tag()
         paginator, page_obj = paginate(request, tag_questions, 3)
         context = {'paginator': paginator, 'page': page_obj, 'tag': tag_name,

@@ -10,8 +10,9 @@ import random
 def base_context():
     pop_tags = [{'name' : f'{pop_tag}', 'class_tag' : f'{pop_tag.class_tag}'}
                 for pop_tag in models.Tag.objects.pop_tags()]
+    best_members = models.Member.objects.best_members()
     return {'pop_tags': pop_tags,
-            'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
+            'best_members': best_members, 'is_home': True, 'is_auth': models.IS_AUTH}
 
 
 def paginate(request, objects_list, per_page=10):

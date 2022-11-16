@@ -47,15 +47,17 @@ for id in range(100):
     })
 
 
+class MemberManager(models.Manager):
+    def best_members(self):
+        return self.all().annotate(rating=Count('answers')).order_by('-rating')[:10]
 
-#class MemberManager(models.Manager):
 
 class Member(models.Model):
     info = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
     avatar = models.ImageField(default="AskME/static/img/unknown.jpg", upload_to="avatars", blank=True)
     rank = models.IntegerField(blank=True, null=True, default=0)
 
-    #objects = MemberManager()
+    objects = MemberManager()
 
     def __str__(self):
         return self.info.__str__()
@@ -78,9 +80,6 @@ class Question(models.Model):
     dislike_users = models.ManyToManyField(Member, related_name="question_dislikes", blank=True)
 
     objects = QuestionManager()
-
-    def rank(self) -> int:
-        return self.answers.all().count()
 
     def get_text(self):
         return self.text
@@ -166,9 +165,6 @@ class Tag(models.Model):
 
     def color(self):
         return self.COLORS[self.class_tag]
-
-    def rank(self) -> int:
-        return self.questions.all().count()
 
     def questions_by_tag(self):
         return self.questions.all()

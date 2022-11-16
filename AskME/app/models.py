@@ -42,10 +42,21 @@ for id in range(100):
     })
 
 
+
+#class MemberManager(models.Manager):
+
 class Member(models.Model):
     info = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
     avatar = models.ImageField(default="AskME/static/img/unknown.jpg", upload_to="avatars", blank=True)
     rank = models.IntegerField(blank=True, null=True)
+
+    #objects = MemberManager()
+
+    def __str__(self):
+        return self.info.__str__()
+
+    def get_avatar(self):
+        return self.avatar.name
 
 
 class Question(models.Model):
@@ -55,6 +66,33 @@ class Question(models.Model):
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="questions")
     like_users = models.ManyToManyField(Member, related_name="question_likes", blank=True)
     dislike_users = models.ManyToManyField(Member, related_name="question_dislikes", blank=True)
+
+    def get_text(self):
+        return self.text
+
+    def get_date(self):
+        return f'{self.date}'
+
+    def get_author(self):
+        return self.author
+
+    def get_likes(self):
+        return self.like_users.all().count()
+
+    def get_dislikes(self):
+        return self.dislike_users.all().count()
+
+    def get_tags(self):
+        return self.tags.all()
+
+    def get_num_answers(self):
+        return self.answers.all().count()
+
+    def get_answers(self):
+        return self.answers.all()
+
+    def __str__(self):
+        return self.title
 
 
 class Answer(models.Model):
@@ -67,9 +105,33 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE,
                                  related_name="answers", related_query_name="answer")
 
+    def __str__(self):
+        return self.text
+
+    def get_date(self):
+        return f'{self.date}'
+
+    def get_author(self):
+        return self.author
+
+    def get_likes(self):
+        return self.like_users.all().count()
+
+    def get_dislikes(self):
+        return self.dislike_users.all().count()
+
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=10)
+    questions = models.ManyToManyField(Question, related_name="tags")
     rank = models.IntegerField(blank=True, null=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE,
-                                 related_name="tags", related_query_name="tag")
+    
+    def questions_by_tag(self):
+        return self.questions.all()
+
+
+    def __str__(self):
+        return self.name
+
+

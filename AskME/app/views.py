@@ -14,7 +14,8 @@ def paginate(request, objects_list, per_page=10):
 
 
 def index(request):
-    paginator, page_obj = paginate(request, models.QUESTIONS, 3)
+    QUESTIONS = models.Question.objects.all()
+    paginator, page_obj = paginate(request, QUESTIONS, 3)
     context = {'paginator': paginator, 'page': page_obj, 'pop_tags': models.POP_TAGS,
                'best': models.BEST_MEMBERS, 'is_home': True, 'is_auth': models.IS_AUTH}
     return render(request, 'main/index.html', context=context)
@@ -31,29 +32,27 @@ def settings(request):
 
 
 def question(request, id: int):
-    if id < len(models.QUESTIONS):
-        question_item = models.QUESTIONS[id]
-        paginator, page_obj = paginate(request, question_item['answers'], 5)
+    if id <= models.Question.objects.last().id:
+        question_item = models.Question.objects.get(id=id)
+        paginator, page_obj = paginate(request, question_item.get_answers(), 5)
         context = {'paginator': paginator, 'page': page_obj, 'question': question_item,
                    'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
         return render(request, 'main/question.html', context=context)
     else:
-        return HttpResponse(status=500, content="There is no such question")
+        return HttpResponse(status=404, content="There is no such question")
 
 
-def tag(request, question_tag: str):
-    tag_questions = []
-    for question_item in models.QUESTIONS:
-        if question_tag in question_item['tags']:
-            tag_questions.append(question_item)
-
-    if len(tag_questions) > 0:
+def tag(request, tag_name: str):
+    if models.Tag.objects.filter(name=tag_name).count() > 0:
+        tag = models.Tag.objects.get(name=tag_name)
+        print(tag.rank)
+        tag_questions = tag.questions_by_tag()
         paginator, page_obj = paginate(request, tag_questions, 3)
-        context = {'paginator': paginator, 'page': page_obj, 'tag': question_tag,
+        context = {'paginator': paginator, 'page': page_obj, 'tag': tag_name,
                    'best': models.BEST_MEMBERS, 'pop_tags': models.POP_TAGS, 'is_home': True, 'is_auth': models.IS_AUTH}
         return render(request, 'main/tag.html', context=context)
     else:
-        return HttpResponse(status=500, content="There are no questions with this tag")
+        return HttpResponse(status=404, content="There are no questions with this tag")
 
 
 def hot(request):

@@ -1,16 +1,13 @@
 import random
-
 import django.contrib.auth.backends
 from django.db import models
-from django.db.models import Count
-from functools import partial
+from django.db.models import Count, Sum
 
 IS_AUTH = True
 
 HOT_QUESTIONS = [
     1, 4, 7
 ]
-
 
 POP_TAGS = [
     {'name': 'Swift', 'color': "btn btn-danger"},
@@ -32,7 +29,7 @@ BEST_MEMBERS = [
 QUESTIONS = []
 for id in range(100):
     ANSWERS = []
-    for i in range(id*id):
+    for i in range(id * id):
         ANSWERS.append({
             'id': i,
             'text': f'Text of Answer № {i}'
@@ -49,18 +46,17 @@ for id in range(100):
 
 class MemberManager(models.Manager):
     def best_members(self):
-        return self.all().annotate(rating=Count('answers')).order_by('-rating')[:10]
+        return self.annotate(rating=Count('questions')+Count('answers')).order_by('-rating')[:10]
 
 
 class Member(models.Model):
-    info = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
+    profile = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
     avatar = models.ImageField(default="AskME/static/img/unknown.jpg", upload_to="avatars", blank=True)
-    rank = models.IntegerField(blank=True, null=True, default=0)
 
     objects = MemberManager()
 
     def __str__(self):
-        return self.info.__str__()
+        return self.profile.__str__()
 
     def get_avatar(self):
         return self.avatar.name
@@ -76,10 +72,24 @@ class Question(models.Model):
     text = models.TextField()
     date = models.DateField(auto_now_add=True)
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="questions")
-    like_users = models.ManyToManyField(Member, related_name="question_likes", blank=True)
-    dislike_users = models.ManyToManyField(Member, related_name="question_dislikes", blank=True)
 
     objects = QuestionManager()
+
+    # @property
+    # def rank(self):
+    #     return self.get_likes() - self.get_dislikes()
+
+    def get_answers(self):
+        return self.answers.all()
+
+    def get_num_answers(self):
+        return self.get_answers().count()
+
+    def get_likes(self):
+        return self.votes.filter(type='like').count()
+
+    def get_dislikes(self):
+        return self.votes.filter(type='dislike').count()
 
     def get_text(self):
         return self.text
@@ -90,23 +100,18 @@ class Question(models.Model):
     def get_author(self):
         return self.author
 
-    def get_likes(self):
-        return self.like_users.all().count()
-
-    def get_dislikes(self):
-        return self.dislike_users.all().count()
-
     def get_tags(self):
         return self.tags.all()
 
-    def get_num_answers(self):
-        return self.answers.all().count()
-
-    def get_answers(self):
-        return self.answers.all()
-
     def __str__(self):
         return self.title
+
+
+class VoteQuestion(models.Model):
+    author = models.OneToOneField(Member, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="votes")
+    TYPE = [('like', 1), ('dislike', -1)]
+    type = models.CharField(max_length=7, choices=TYPE)
 
 
 class Answer(models.Model):
@@ -114,10 +119,17 @@ class Answer(models.Model):
     date = models.DateField(auto_now_add=True)
     correct = models.BooleanField(default=False)
     author = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name="answers")
-    like_users = models.ManyToManyField(Member, related_name="answer_likes", blank=True)
-    dislike_users = models.ManyToManyField(Member, related_name="answer_dislikes", blank=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE,
-                                 related_name="answers")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
+
+    # @property
+    # def rank(self) -> int:
+    #     return self.get_likes() - self.get_dislikes()
+
+    def get_likes(self):
+        return self.votes.filter(type='like').count()
+
+    def get_dislikes(self):
+        return self.votes.filter(type='dislike').count()
 
     def __str__(self):
         return self.text
@@ -128,11 +140,12 @@ class Answer(models.Model):
     def get_author(self):
         return self.author
 
-    def get_likes(self):
-        return self.like_users.all().count()
 
-    def get_dislikes(self):
-        return self.dislike_users.all().count()
+class VoteAnswer(models.Model):
+    author = models.OneToOneField(Member, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name="votes")
+    TYPE = [('like', 1), ('dislike', -1)]
+    type = models.CharField(max_length=7, choices=TYPE)
 
 
 class TagManager(models.Manager):
@@ -144,8 +157,8 @@ class Tag(models.Model):
     name = models.CharField(max_length=10)
     questions = models.ManyToManyField(Question, related_name="tags", related_query_name="tag")
     CLASS_TAGS = [("btn btn-primary", 'primary'), ("btn btn-secondary", 'secondary'), ("btn btn-success", 'success'),
-                     ("btn btn-danger", 'danger'), ("btn btn-warning", 'warning'), ("btn btn-info", 'info'),
-                     ("btn btn-dark", 'dark')]
+                  ("btn btn-danger", 'danger'), ("btn btn-warning", 'warning'), ("btn btn-info", 'info'),
+                  ("btn btn-dark", 'dark')]
     class_tag = models.CharField(max_length=20, choices=CLASS_TAGS, default='primary')
     objects = TagManager()
 
@@ -159,10 +172,6 @@ class Tag(models.Model):
         'btn btn-dark': '#343a40'
     }
 
-    # def __init__(self, *args):
-    #     self.color = random.choice(COLOR_BUTTONS)
-    #     super().__init__(*args)
-
     def color(self):
         return self.COLORS[self.class_tag]
 
@@ -171,5 +180,3 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-

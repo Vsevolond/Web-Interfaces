@@ -1,7 +1,9 @@
 import random
-import django.contrib.auth.backends
+from django.contrib.auth.backends import UserModel
 from django.db import models
 from django.db.models import Count, Sum
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 IS_AUTH = True
 
@@ -50,8 +52,8 @@ class MemberManager(models.Manager):
 
 
 class Member(models.Model):
-    profile = models.OneToOneField(django.contrib.auth.backends.UserModel, on_delete=models.CASCADE)
-    avatar = models.ImageField(default="AskME/static/img/unknown.jpg", upload_to="avatars", blank=True)
+    profile = models.OneToOneField(UserModel, on_delete=models.CASCADE)
+    avatar = models.ImageField(default="unknown.jpg", upload_to="avatars", blank=True)
 
     objects = MemberManager()
 
@@ -59,7 +61,7 @@ class Member(models.Model):
         return self.profile.__str__()
 
     def get_avatar(self):
-        return self.avatar.name
+        return 'img/' + self.avatar.name
 
 
 class QuestionManager(models.Manager):
@@ -108,9 +110,9 @@ class Question(models.Model):
 
 
 class VoteQuestion(models.Model):
-    author = models.OneToOneField(Member, on_delete=models.CASCADE)
+    author = models.ForeignKey(Member, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="votes")
-    TYPE = [('like', 1), ('dislike', -1)]
+    TYPE = [('like', '+'), ('dislike', '-')]
     type = models.CharField(max_length=7, choices=TYPE)
 
 
@@ -142,10 +144,20 @@ class Answer(models.Model):
 
 
 class VoteAnswer(models.Model):
-    author = models.OneToOneField(Member, on_delete=models.CASCADE)
+    author = models.ForeignKey(Member, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name="votes")
-    TYPE = [('like', 1), ('dislike', -1)]
+    TYPE = [('like', '+'), ('dislike', '-')]
     type = models.CharField(max_length=7, choices=TYPE)
+
+
+# class Vote(models.Model):
+#     author = models.OneToOneField(Member, on_delete=models.CASCADE)
+#     #question_or_answer = models.ForeignKey(to=models, on_delete=models.CASCADE, related_name="votes")
+#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+#     object_id = models.PositiveIntegerField(null=True)
+#     content_object = GenericForeignKey('content_type', 'object_id')
+#     TYPE = [('like', '+'), ('dislike', '-')]
+#     type = models.CharField(max_length=7, choices=TYPE)
 
 
 class TagManager(models.Manager):
@@ -180,3 +192,4 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+

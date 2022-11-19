@@ -5,7 +5,7 @@
         <article class="blog-post border border-2" style="border-radius: 10px">
             <div class="row">
                 <div class="col-auto">
-                    <img src="{% static "img/avatar.jpeg" %}" class="avatar" alt="" />
+                    <img src="{% static question.get_author.get_avatar %}" class="avatar" alt="" />
                 </div>
                 <div class="col-8 btn-group-vertical">
                     <a href="{% url "question" id=question.id %}"><h2 class="question-title">{{ question }}</h2></a>

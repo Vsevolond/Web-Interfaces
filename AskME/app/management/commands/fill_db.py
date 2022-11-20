@@ -21,7 +21,7 @@ class Command(BaseCommand):
         parser.add_argument('ratio', type=int)
 
     def handle(self, *args, **kwargs):
-        UserModel.objects.filter(username='admin').all().delete()
+        UserModel.objects.exclude(username='vsevolod').all().delete()
         models.Member.objects.all().delete()
         models.Question.objects.all().delete()
         models.Answer.objects.all().delete()
@@ -62,4 +62,4 @@ class Command(BaseCommand):
         for i in range(1, ratio + 1):
             tag = models.Tag(name=f'tag{i}', class_tag=random.choice(tag_classes))
             tag.save()
-            tag.questions.set(random.choices(questions))
+            tag.questions.set(random.choices(questions, k=random.randint(1, questions.count())))

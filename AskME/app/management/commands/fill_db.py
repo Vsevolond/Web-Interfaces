@@ -21,7 +21,7 @@ class Command(BaseCommand):
         parser.add_argument('ratio', type=int)
 
     def handle(self, *args, **kwargs):
-        UserModel.objects.all().delete()
+        UserModel.objects.filter(username='admin').all().delete()
         models.Member.objects.all().delete()
         models.Question.objects.all().delete()
         models.Answer.objects.all().delete()
